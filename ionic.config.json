@@ -1,0 +1,7 @@
+{
+  "name": "gerenciador_lava_rapido",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
