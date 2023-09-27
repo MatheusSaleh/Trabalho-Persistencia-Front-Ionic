@@ -3,6 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Cliente } from './shared/model/Cliente';
 import { Veiculo } from './shared/model/Veiculo';
+import { Servico } from './shared/model/Servico';
+import { Agendamento } from './shared/model/Agendamento';
 
 @Injectable({
   providedIn: 'root'
@@ -20,4 +22,13 @@ export class ApiServiceService {
   public getAllVeiculos(): Observable<Veiculo[]>{
     return this.http.get<Veiculo[]>(`${this.apiUrl}/veiculos`);
   }
+
+  public getAllServicos(): Observable<Servico[]>{
+    return this.http.get<Servico[]>(`${this.apiUrl}/servicos`);
+  }
+
+  public getAllAgendamentos(): Observable<Agendamento[]>{
+    return this.http.get<Agendamento[]>(`${this.apiUrl}/agendamentos`);
+  }
+
 }

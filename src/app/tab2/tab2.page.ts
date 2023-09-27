@@ -20,7 +20,6 @@ export class Tab2Page {
   public buscarInformacoesVeiculos(): void{
     this.apiService.getAllVeiculos().subscribe((dados: Veiculo[]) => {
       this.veiculos = dados;
-      console.log(this.veiculos);
     })
   }
 
