@@ -1,0 +1,26 @@
+.table-row {
+  width: 33%;
+  float: left;
+  border: 5px solid #26547C;
+  height: 110px;
+  align-items: center;
+  text-align: center;
+  background-color: #FCFCFC;
+  border-radius: 10px;
+}
+
+.veiculos{
+  border: 5px solid #26547C;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: #FCFCFC;
+
+}
+
+ion-toolbar {
+  --background: #EF476F;
+  --color: white;
+
+  --border-color: #26547C;
+
+}

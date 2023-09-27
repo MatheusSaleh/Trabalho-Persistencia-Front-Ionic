@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Veiculo } from '../shared/model/Veiculo';
+import { ApiServiceService } from '../api-service.service';
 
 @Component({
   selector: 'app-tab2',
@@ -7,6 +9,19 @@ import { Component } from '@angular/core';
 })
 export class Tab2Page {
 
-  constructor() {}
+  constructor(private apiService: ApiServiceService) {}
+
+  public veiculos: Veiculo[] = [];
+
+  ngOnInit(): void{
+    this.buscarInformacoesVeiculos();
+  }
+
+  public buscarInformacoesVeiculos(): void{
+    this.apiService.getAllVeiculos().subscribe((dados: Veiculo[]) => {
+      this.veiculos = dados;
+      console.log(this.veiculos);
+    })
+  }
 
 }

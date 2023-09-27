@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ApiServiceService } from '../api-service.service';
+import { Cliente } from '../shared/model/Cliente';
 
 @Component({
   selector: 'app-tab1',
@@ -7,16 +8,17 @@ import { ApiServiceService } from '../api-service.service';
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page {
-
-  clientes: any = [];
-
   constructor(private apiService: ApiServiceService) {}
 
-  ngOnInit(): void{
-    this.apiService.getAllClientes().subscribe((data) => {
-      this.clientes = data;
-      console.log(data);
-    })
+  public clientes: Cliente[] = [];
+
+  ngOnInit(): void {
+    this.buscarInformacoesClientes();
   }
 
+  public buscarInformacoesClientes(): void {
+    this.apiService.getAllClientes().subscribe((dados: Cliente[]) => {
+      this.clientes = dados;
+    });
+  }
 }

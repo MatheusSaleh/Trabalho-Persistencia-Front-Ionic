@@ -1,17 +1,38 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Clientes
-    </ion-title>
+    <ion-title> Clientes </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Clientes</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div id="container">
+    <ion-accordion-group>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+      <ion-accordion *ngFor="let cliente of clientes" >
+        <ion-item slot="header" color="light">
+          <ion-label>{{ cliente.nome }}</ion-label>
+        </ion-item>
+        <div class="ion-padding " slot="content">
+          <tr class="table-row"><b>Id Do Cliente</b>: <br>{{ cliente.id }} </tr>
+          <tr class="table-row"><b>Email do Cliente</b>: <br>{{ cliente.email }} </tr>
+          <tr class="table-row"><b>Nome Completo do Cliente</b>: <br>{{ cliente.nome }} </tr>
+          <div>Veículos</div>
+          <div *ngFor="let veiculo of cliente.veiculos" class="veiculos">
+            <b>Marca</b>: {{veiculo.marca}}
+            <br>
+            <b>Modelo</b>: {{veiculo.modelo}}
+            <br>
+            <b>Placa</b>: {{veiculo.placa}}
+          </div>
+          <div>Agendamentos</div>
+          <br>
+          <div *ngFor="let agendamento of cliente.agendamentos" >
+            <b>Data</b>: {{agendamento.data}}
+          </div>
+        </div>
+        <br>
+      </ion-accordion>
+
+    </ion-accordion-group>
+  </div>
 </ion-content>
