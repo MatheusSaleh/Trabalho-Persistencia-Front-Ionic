@@ -1,6 +1,12 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title> Clientes </ion-title>
+    <ion-buttons slot="primary">
+      <ion-button fill="outline" (click)="setOpen(true)">
+        <ion-icon name="add-outline"></ion-icon>
+        Adicionar
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -35,4 +41,29 @@
 
     </ion-accordion-group>
   </div>
+
+
+  <ion-modal [isOpen]="isModalOpen">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Adicionar Cliente</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="setOpen(false)">Fechar</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+        <ion-list>
+          <ion-list>
+            <ion-item>
+              <ion-input label="Nome" placeholder="Nome" [(ngModel)]="nomeCliente"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input label="Email" placeholder="Email" [(ngModel)]="emailCliente"></ion-input>
+            </ion-item>
+          </ion-list>
+        </ion-list>
+        <ion-button expand="block" color="success" (click)="adicionaNovoCliente()">Confirmar</ion-button>
+      </ion-header>
+    </ng-template>
+  </ion-modal>
 </ion-content>

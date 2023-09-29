@@ -5,3 +5,14 @@ ion-toolbar {
   --border-color: #26547C;
 
 }
+
+.table-row {
+  width: 33%;
+  float: left;
+  border: 5px solid #26547C;
+  height: 150px;
+  align-items: center;
+  text-align: center;
+  background-color: #FCFCFC;
+  border-radius: 10px;
+}

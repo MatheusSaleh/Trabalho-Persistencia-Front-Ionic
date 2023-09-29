@@ -11,12 +11,18 @@
     <ion-accordion-group>
       <ion-accordion *ngFor="let agendamento of agendamentos" >
         <ion-item slot="header" color="light">
-          <ion-label>{{agendamento.data}}</ion-label>
+          <ion-label><b>Data do Serviço:</b> {{agendamento.data}}</ion-label>
         </ion-item>
         <div class="ion-padding" slot="content">
           <tr class="table-row">
             <b>Cliente:</b>
-            {{agendamento.cliente?.nome}}
+            <div>{{agendamento.cliente?.nome}}</div>
+          </tr>
+          <tr class="table-row">
+            <b>Serviços:</b>
+            <div *ngFor="let servico of agendamento.servicos" >
+              {{servico.tipo}}
+            </div>
           </tr>
         </div>
       </ion-accordion>

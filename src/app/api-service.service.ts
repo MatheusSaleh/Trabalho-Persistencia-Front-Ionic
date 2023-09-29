@@ -31,4 +31,8 @@ export class ApiServiceService {
     return this.http.get<Agendamento[]>(`${this.apiUrl}/agendamentos`);
   }
 
+  public postCreateCliente(formulario: Cliente): Observable<Cliente>{
+    return this.http.post<Cliente>(`${this.apiUrl}/clientes`, formulario)
+  }
+
 }
