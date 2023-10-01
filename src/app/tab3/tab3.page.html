@@ -1,33 +1,68 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Serviços
-    </ion-title>
+    <ion-title> Serviços </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <div id="container">
     <ion-accordion-group>
-      <ion-accordion *ngFor="let servico of servicos" >
+      <ion-accordion *ngFor="let servico of servicos">
         <ion-item slot="header" color="light">
           <ion-label>{{servico.tipo}}</ion-label>
         </ion-item>
         <div class="ion-padding" slot="content">
           <tr class="table-row">
-            <b>Valor</b>:
+            <b>Valor</b
+            >:
             <div>{{servico.valor}}</div>
-            <br>
-            <b>Situacao</b>:
+            <br />
+            <b>Situacao</b
+            >:
             <div>{{servico.situacao}}</div>
-
           </tr>
           <tr class="table-row coluna-acoes">
-            <b>Ações</b>:
-            <ion-button color="secondary"><ion-icon name="checkmark"></ion-icon>Marcar com Concluido</ion-button>
+            <b>Ações</b
+            >:
+            <ion-button
+              color="secondary"
+              (click)="setOpenModalAtualizarSituacaoDoServico(true, servico)"
+              ><ion-icon name="checkmark"></ion-icon>Marcar como
+              Concluido</ion-button
+            >
           </tr>
         </div>
       </ion-accordion>
     </ion-accordion-group>
   </div>
+
+  <ion-modal [isOpen]="isModalAtualizarSituacaoDoServicoOpen">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title> Marcar Serviço como concluido </ion-title>
+          <ion-buttons slot="end">
+            <ion-button
+              (click)="setOpenModalAtualizarSituacaoDoServico(false, servicoSelecionadoParaAtualizarSituacao)"
+              >Fechar</ion-button
+            >
+          </ion-buttons>
+        </ion-toolbar>
+        <div class="confirma-exclusao">
+          <div>Tem certeza que deseja marcar esse serviço como concluído?</div>
+          <div>
+            <ion-button
+              fill="outline"
+              color="success"
+              (click)="setOpenModalAtualizarSituacaoDoServico(false, servicoSelecionadoParaAtualizarSituacao)"
+              ><ion-icon name="arrow-back"></ion-icon>Voltar</ion-button
+            >
+            <ion-button color="success" (click)="atualizarSituacaoDoServico()"
+              ><ion-icon name="checkmark"></ion-icon>Confirmar</ion-button
+            >
+          </div>
+        </div>
+      </ion-header>
+    </ng-template>
+  </ion-modal>
 </ion-content>
