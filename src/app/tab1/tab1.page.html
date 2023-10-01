@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-title> Clientes </ion-title>
     <ion-buttons slot="primary">
-      <ion-button fill="outline" (click)="setOpen(true)">
+      <ion-button fill="outline" (click)="setOpenModalAdicionarCliente(true)">
         <ion-icon name="add-outline"></ion-icon>
         Adicionar
       </ion-button>
@@ -13,57 +13,171 @@
 <ion-content [fullscreen]="true">
   <div id="container">
     <ion-accordion-group>
-
-      <ion-accordion *ngFor="let cliente of clientes" >
+      <ion-accordion *ngFor="let cliente of clientes">
         <ion-item slot="header" color="light">
           <ion-label>{{ cliente.nome }}</ion-label>
         </ion-item>
-        <div class="ion-padding " slot="content">
-          <tr class="table-row"><b>Id Do Cliente</b>: <br>{{ cliente.id }} </tr>
-          <tr class="table-row"><b>Email do Cliente</b>: <br>{{ cliente.email }} </tr>
-          <tr class="table-row"><b>Nome Completo do Cliente</b>: <br>{{ cliente.nome }} </tr>
+        <div class="ion-padding" slot="content">
+          <tr class="table-row">
+            <b>Id Do Cliente</b
+            >:
+            <br />{{ cliente.id }}
+          </tr>
+          <tr class="table-row">
+            <b>Email do Cliente</b
+            >:
+            <br />{{ cliente.email }}
+          </tr>
+          <tr class="table-row">
+            <b>Nome Completo do Cliente</b
+            >:
+            <br />{{ cliente.nome }}
+          </tr>
           <div>Veículos</div>
           <div *ngFor="let veiculo of cliente.veiculos" class="veiculos">
             <b>Marca</b>: {{veiculo.marca}}
-            <br>
+            <br />
             <b>Modelo</b>: {{veiculo.modelo}}
-            <br>
+            <br />
             <b>Placa</b>: {{veiculo.placa}}
           </div>
           <div>Agendamentos</div>
-          <br>
-          <div *ngFor="let agendamento of cliente.agendamentos" >
+          <br />
+          <div *ngFor="let agendamento of cliente.agendamentos">
             <b>Data</b>: {{agendamento.data}}
           </div>
+          <tr class="table-row tela-botoes">
+            <div><b>Ações</b>:</div>
+            <div class="botoes">
+              <ion-button
+                color="danger"
+                (click)="setOpenModalExcluirCliente(true, cliente)"
+              >
+                <ion-icon name="trash"></ion-icon>
+                Apagar</ion-button
+              >
+              <ion-button color="tertiary"
+                ><ion-icon name="create"></ion-icon>Editar</ion-button
+              >
+            </div>
+          </tr>
         </div>
-        <br>
+        <br />
       </ion-accordion>
-
     </ion-accordion-group>
   </div>
 
-
-  <ion-modal [isOpen]="isModalOpen">
+  <ion-modal [isOpen]="isModalAdicionarClienteOpen">
     <ng-template>
       <ion-header>
         <ion-toolbar>
           <ion-title>Adicionar Cliente</ion-title>
           <ion-buttons slot="end">
-            <ion-button (click)="setOpen(false)">Fechar</ion-button>
+            <ion-button (click)="setOpenModalAdicionarCliente(false)"
+              >Fechar</ion-button
+            >
           </ion-buttons>
         </ion-toolbar>
         <ion-list>
           <ion-list>
             <ion-item>
-              <ion-input label="Nome" placeholder="Nome" [(ngModel)]="nomeCliente"></ion-input>
+              <ion-input
+                label="Nome"
+                placeholder="Nome"
+                [(ngModel)]="nomeCliente"
+              ></ion-input>
             </ion-item>
             <ion-item>
-              <ion-input label="Email" placeholder="Email" [(ngModel)]="emailCliente"></ion-input>
+              <ion-input
+                label="Email"
+                placeholder="Email"
+                [(ngModel)]="emailCliente"
+              ></ion-input>
             </ion-item>
           </ion-list>
         </ion-list>
-        <ion-button expand="block" color="success" (click)="adicionaNovoCliente()">Confirmar</ion-button>
+        <ion-button
+          expand="block"
+          color="success"
+          (click)="adicionaNovoCliente()"
+          >Confirmar</ion-button
+        >
+        <div *ngIf="deuErroAoAdicionarCliente">
+          Os Campos Nome e Email não podem estar vazios
+        </div>
       </ion-header>
     </ng-template>
   </ion-modal>
+
+  <ion-modal [isOpen]="isModalExcluirClienteOpen">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Excluir {{clienteSelecionadoParaExcluir.nome}}</ion-title>
+        </ion-toolbar>
+        <div class="texto-confirma-exclusao">
+          <div>
+            Esta é uma ação <b>irreversível</b>, tem certeza que deseja excluir
+            este cliente?
+          </div>
+          <div>
+            <ion-button
+              fill="outline"
+              color="danger"
+              (click)="setOpenModalExcluirCliente(false, clienteSelecionadoParaExcluir)"
+              ><ion-icon name="arrow-back"></ion-icon>Voltar</ion-button
+            >
+            <ion-button color="danger" (click)="excluirCliente()"
+              ><ion-icon name="checkbox-outline"></ion-icon>Confirmar
+              Exclusão</ion-button
+            >
+          </div>
+        </div>
+      </ion-header>
+    </ng-template>
+  </ion-modal>
+
+  <ion-modal [isOpen]="isModalAdicionarClienteOpen">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Adicionar Cliente</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="setOpenModalAdicionarCliente(false)"
+              >Fechar</ion-button
+            >
+          </ion-buttons>
+        </ion-toolbar>
+        <ion-list>
+          <ion-list>
+            <ion-item>
+              <ion-input
+                label="Nome"
+                placeholder="Nome"
+                [(ngModel)]="nomeCliente"
+              ></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input
+                label="Email"
+                placeholder="Email"
+                [(ngModel)]="emailCliente"
+              ></ion-input>
+            </ion-item>
+          </ion-list>
+        </ion-list>
+        <ion-button
+          expand="block"
+          color="success"
+          (click)="adicionaNovoCliente()"
+          >Confirmar</ion-button
+        >
+        <div *ngIf="deuErroAoAdicionarCliente">
+          Os Campos Nome e Email não podem estar vazios
+        </div>
+      </ion-header>
+    </ng-template>
+  </ion-modal>
+
+  
 </ion-content>

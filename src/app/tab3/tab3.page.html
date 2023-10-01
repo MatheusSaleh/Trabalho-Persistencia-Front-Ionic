@@ -16,7 +16,15 @@
         <div class="ion-padding" slot="content">
           <tr class="table-row">
             <b>Valor</b>:
-            {{servico.valor}}
+            <div>{{servico.valor}}</div>
+            <br>
+            <b>Situacao</b>:
+            <div>{{servico.situacao}}</div>
+
+          </tr>
+          <tr class="table-row coluna-acoes">
+            <b>Ações</b>:
+            <ion-button color="secondary"><ion-icon name="checkmark"></ion-icon>Marcar com Concluido</ion-button>
           </tr>
         </div>
       </ion-accordion>

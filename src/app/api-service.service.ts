@@ -27,12 +27,20 @@ export class ApiServiceService {
     return this.http.get<Servico[]>(`${this.apiUrl}/servicos`);
   }
 
+  public atualizarSituacaoDoServico(servico: Servico): Observable<Servico> {
+    return this.http.put<Servico>(`${this.apiUrl}/atualizar-situacao-do-servico/${servico.id}`, servico);
+  }
+
   public getAllAgendamentos(): Observable<Agendamento[]>{
     return this.http.get<Agendamento[]>(`${this.apiUrl}/agendamentos`);
   }
 
   public postCreateCliente(formulario: Cliente): Observable<Cliente>{
     return this.http.post<Cliente>(`${this.apiUrl}/clientes`, formulario)
+  }
+
+  public deleteCliente(cliente: Cliente): Observable<Cliente>{
+    return this.http.delete<Cliente>(`${this.apiUrl}/clientes/${cliente.id}`)
   }
 
 }

@@ -8,4 +8,5 @@ export class Servico{
   public veiculos: Veiculo[] | undefined;
   public agendamento: Agendamento | undefined;
   public agendamentoId: Agendamento | undefined;
+  public situacao: String | undefined;
 }

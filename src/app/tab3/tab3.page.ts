@@ -21,6 +21,7 @@ export class Tab3Page {
   public buscarInformacoesServicos(): void{
     this.apiService.getAllServicos().subscribe((dados: Servico[]) => {
       this.servicos = dados;
+      console.log(dados)
     })
   }
 }
