@@ -31,6 +31,10 @@ export class ApiServiceService {
     return this.http.put<Servico>(`${this.apiUrl}/atualizar-situacao-do-servico/${servico.id}`, servico);
   }
 
+  public deleteServico(servico: Servico): Observable<Servico>{
+    return this.http.delete<Servico>(`${this.apiUrl}/servicos/${servico.id}`);
+  }
+
   public getAllAgendamentos(): Observable<Agendamento[]>{
     return this.http.get<Agendamento[]>(`${this.apiUrl}/agendamentos`);
   }
@@ -41,6 +45,10 @@ export class ApiServiceService {
 
   public deleteCliente(cliente: Cliente): Observable<Cliente>{
     return this.http.delete<Cliente>(`${this.apiUrl}/clientes/${cliente.id}`)
+  }
+
+  public postCreateVeiculo(formulario: Veiculo): Observable<Veiculo>{
+    return this.http.post<Veiculo>(`${this.apiUrl}/veiculos`, formulario)
   }
 
 }

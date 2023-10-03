@@ -27,6 +27,8 @@ export class Tab1Page {
 
   public clienteSelecionadoParaExcluir: Cliente = new Cliente();
 
+  
+
   ngOnInit(): void {
     this.buscarInformacoesClientes();
   }

@@ -22,14 +22,17 @@
             <div>{{servico.situacao}}</div>
           </tr>
           <tr class="table-row coluna-acoes">
-            <b>Ações</b
-            >:
+            <div>
+              <b>Ações</b
+              >
+            </div>:
             <ion-button
               color="secondary"
               (click)="setOpenModalAtualizarSituacaoDoServico(true, servico)"
               ><ion-icon name="checkmark"></ion-icon>Marcar como
               Concluido</ion-button
             >
+            <ion-button color="danger" (click)="setOpenModalExcluirServico(true, servico)"><ion-icon name="trash"></ion-icon>APAGAR</ion-button>
           </tr>
         </div>
       </ion-accordion>
@@ -61,6 +64,34 @@
               ><ion-icon name="checkmark"></ion-icon>Confirmar</ion-button
             >
           </div>
+        </div>
+      </ion-header>
+    </ng-template>
+  </ion-modal>
+
+  <ion-modal [isOpen]="isModalExcluirServicoOpen">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>
+            Excluir Serviço
+          </ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="setOpenModalExcluirServico(false, servicoSelecionadoParaDeletar)">Fechar</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+        <div>
+          Esta é uma ação <b>irreversível</b>, tem certeza que deseja excluir este serviço?
+        </div>
+        <div>
+          <ion-button
+            fill="outline"
+            color="danger"
+            (click)="setOpenModalExcluirServico(false, servicoSelecionadoParaDeletar)"
+          ><ion-icon name="arrow-back"></ion-icon>Voltar</ion-button>
+          <ion-button color="danger" (click)="deletarServico()">
+            <ion-icon name="checkbox-outline"></ion-icon>Confirmar
+          </ion-button>
         </div>
       </ion-header>
     </ng-template>

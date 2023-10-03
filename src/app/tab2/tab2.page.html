@@ -1,6 +1,12 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title> Veiculos </ion-title>
+    <ion-buttons slot="primary">
+      <ion-button fill="outline" (click)="setOpenModalAdicionarVeiculo(true)">
+        <ion-icon name="add-outline"></ion-icon>
+        Adicionar
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -18,16 +24,62 @@
             <br />{{veiculo.id}}
           </tr>
           <tr class="table-row">
-            <b>Ano</b>: {{veiculo.ano}}
+            <b>Ano</b
+            >: {{veiculo.ano}}
           </tr>
           <tr class="table-row">
             <div><b>Informações do Proprietário</b></div>
-            <b>Nome</b>: {{veiculo.cliente?.nome}}
-            <br>
-            <b>Email</b>: {{veiculo.cliente?.email}}
+            <b>Nome</b
+            >: {{veiculo.cliente?.nome}}
+            <br />
+            <b>Email</b
+            >: {{veiculo.cliente?.email}}
           </tr>
         </div>
       </ion-accordion>
     </ion-accordion-group>
   </div>
+
+  <ion-modal [isOpen]="isModalAdicionarVeiculoOpen">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title> Adicionar Veículo </ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="setOpenModalAdicionarVeiculo(false)"
+              >Fechar</ion-button
+            >
+          </ion-buttons>
+        </ion-toolbar>
+        <ion-list>
+          <ion-list>
+            <ion-item>
+              <ion-input label="Marca" placeholder="Marca" [(ngModel)]="marcaDoVeiculoParaSerAdicionado"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input label="Modelo" placeholder="Modelo" [(ngModel)]="modeloDoVeiculoParaSerAdicionado"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label>Ano</ion-label>
+              <ion-input label="Ano" [(ngModel)]="anoDoVeiculoParaSerAdicionado" placeholder="Ano" type="number"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input label="Placa" placeholder="Placa" [(ngModel)]="placaDoVeiculoParaSerAdicionado"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-select placeholder="Selecione um Cliente" [(ngModel)]="clienteSelecionadoId">
+                <div slot="label">Cliente Proprietário <ion-text color="danger">(Obrigatório)</ion-text></div>
+                <ion-select-option value="cliente" *ngFor="let cliente of clientes" [value]="cliente.id">{{cliente.nome}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-list>
+        </ion-list>
+        <ion-button
+          expand="block"
+          color="success"
+          (click)="adicionaNovoVeiculo()"
+        >Confirmar</ion-button>
+      </ion-header>
+    </ng-template>
+  </ion-modal>
 </ion-content>

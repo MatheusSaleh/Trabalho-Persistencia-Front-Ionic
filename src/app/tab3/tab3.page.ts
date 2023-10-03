@@ -15,7 +15,11 @@ export class Tab3Page {
 
   public isModalAtualizarSituacaoDoServicoOpen: boolean = false;
 
+  public isModalExcluirServicoOpen: boolean = false;
+
   public servicoSelecionadoParaAtualizarSituacao: Servico = new Servico();
+
+  public servicoSelecionadoParaDeletar: Servico = new Servico();
 
   ngOnInit(): void{
     this.buscarInformacoesServicos();
@@ -33,8 +37,13 @@ export class Tab3Page {
     this.servicoSelecionadoParaAtualizarSituacao = servicoSelecionado;
   }
 
+  public setOpenModalExcluirServico(isOpen: boolean, servicoSelecionado: Servico): void{
+    this.isModalExcluirServicoOpen = isOpen;
+    this.servicoSelecionadoParaDeletar = servicoSelecionado;
+  }
+
   public atualizarSituacaoDoServico(): void{
-    this.apiService.atualizarSituacaoDoServico(this.servicoSelecionadoParaAtualizarSituacao).subscribe(() => {
+    this.apiService.atualizarSituacaoDoServico(this.servicoSelecionadoParaDeletar).subscribe(() => {
       console.log("Serviço marcado como concluido com sucesso");
       this.setOpenModalAtualizarSituacaoDoServico(false, this.servicoSelecionadoParaAtualizarSituacao);
       this.buscarInformacoesServicos();
@@ -42,4 +51,16 @@ export class Tab3Page {
       console.log("Erro ao atualizar situação do serviço")
     })
   }
+
+  public deletarServico(): void {
+    console.log(this.servicoSelecionadoParaDeletar);
+    this.apiService.deleteServico(this.servicoSelecionadoParaAtualizarSituacao).subscribe(() => {
+      console.log("Serviço excluido com sucesso");
+      this.setOpenModalExcluirServico(false, this.servicoSelecionadoParaDeletar);
+      this.buscarInformacoesServicos();
+    }, () => {
+      console.log("Erro ao excluir serviço");
+    })
+  }
+
 }
