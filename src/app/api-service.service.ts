@@ -51,4 +51,8 @@ export class ApiServiceService {
     return this.http.post<Veiculo>(`${this.apiUrl}/veiculos`, formulario)
   }
 
+  public updateCliente(cliente: Cliente): Observable<Cliente>{
+    return this.http.put<Cliente>(`${this.apiUrl}/clientes/${cliente.id}`, cliente)
+  }
+
 }

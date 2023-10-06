@@ -27,7 +27,13 @@ export class Tab1Page {
 
   public clienteSelecionadoParaExcluir: Cliente = new Cliente();
 
-  
+  public isModalEditarClienteOpen: boolean = false;
+
+  public clienteSelecionadoParaEditar: Cliente = new Cliente();
+
+  public novoNomeDoClienteAposEdicao: string = "";
+
+  public novoEmailDoClienteAposEdicao: string = "";
 
   ngOnInit(): void {
     this.buscarInformacoesClientes();
@@ -46,6 +52,12 @@ export class Tab1Page {
   public setOpenModalExcluirCliente(isOpen: boolean, clienteSelecionado: Cliente): void{
     this.isModalExcluirClienteOpen = isOpen;
     this.clienteSelecionadoParaExcluir = clienteSelecionado;
+  }
+
+  public setOpenModalEditarCliente(isOpen: boolean, clienteSelecionado: Cliente): void{
+
+    this.isModalEditarClienteOpen = isOpen;
+    this.clienteSelecionadoParaEditar = clienteSelecionado;
   }
 
   public adicionaNovoCliente(): void {
@@ -73,12 +85,25 @@ export class Tab1Page {
   public excluirCliente(): void{
     this.apiService.deleteCliente(this.clienteSelecionadoParaExcluir).subscribe(
       ()=>{
-        console.log("Cliente excluid com sucesso!");
+        console.log("Cliente excluido com sucesso!");
         this.setOpenModalExcluirCliente(false, this.clienteSelecionadoParaExcluir);
         this.buscarInformacoesClientes();
       },
       ()=>{
         console.log("Erro ao excluir cliente");
       })
+  }
+
+  public editarCliente(): void{
+    this.clienteSelecionadoParaEditar.nome = this.novoNomeDoClienteAposEdicao;
+    this.clienteSelecionadoParaEditar.email = this.emailCliente;
+
+    this.apiService.updateCliente(this.clienteSelecionadoParaEditar).subscribe(
+      ()=>{
+        console.log("Cliente editado com sucesso!");
+        this.setOpenModalEditarCliente(false, this.clienteSelecionadoParaEditar);
+        this.buscarInformacoesClientes();
+      }
+    )
   }
 }
